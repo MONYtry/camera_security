@@ -5,8 +5,7 @@ from config import BLUE, RED, GREEN
 from drawing import draw_box, draw_text, drawWalkPath
 
 
-MAX_DISTANCE = 80  # maximale Entfernung um IDs zu vergleichen
-
+MAX_DISTANCE = 80
 
 class Tracker:
 
@@ -54,11 +53,8 @@ class Tracker:
 
         personen = 0
 
-
         if results is None:
             return 0
-
-
 
         for box in results[0].boxes:
 
@@ -67,6 +63,7 @@ class Tracker:
 
             if box.id is not None:
                 yolo_id = int(box.id[0])
+
             else:
                 yolo_id = -1
 
@@ -80,7 +77,7 @@ class Tracker:
 
 
 
-            # eigene stabile ID
+            # own stalbe id
             person_id = self.get_stable_id(
                 yolo_id,
                 cx,
@@ -111,14 +108,11 @@ class Tracker:
                 10
             )
 
+            # creates ui
             self.make_ui(frame,box,x1,x2,y1,y2)
-
-
-
-            
-
-
         return personen
+
+    
 
     def make_ui(self,frame,box,x1,x2,y1,y2):
 

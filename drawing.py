@@ -32,6 +32,7 @@ def draw_text(frame,text,x,y,color):
 
 def drawWalkPath(frame, track_history, person_id, cx, cy):
 
+    # If id isnt already tracked, add it
     if person_id not in track_history:
         track_history[person_id] = []
 
@@ -39,34 +40,34 @@ def drawWalkPath(frame, track_history, person_id, cx, cy):
     history = track_history[person_id]
 
 
-    # Wenn es schon eine Position gibt
+    # If ID already exists
     if len(history) > 0:
 
         last_x, last_y = history[-1]
 
-
+        # Calculate the distance
         distance = math.sqrt(
             (cx-last_x)**2 +
             (cy-last_y)**2
         )
 
 
-        # Person bewegt sich nicht genug
+        # Small tolerance for better perfomance
         if distance < MOVMENT_TOLERANCE:
             return
 
 
 
-    # Neue Position speichern
+    # Save the neu Position
     history.append((cx,cy))
 
-
+    # Remove old track points
     if len(history) > 50:
         history.pop(0)
 
 
 
-    # Linie zeichnen
+    # Draw the Movment Line
     for i in range(len(history)-1):
 
         cv2.line(

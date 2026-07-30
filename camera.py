@@ -20,7 +20,7 @@ class Camera:
         )
         
         if not self.cap.isOpened():
-            raise Exception("Kamera konnte nicht geöffnet werden")
+            raise Exception("Camera couldnt be opend!")
 
     
     def read(self):
