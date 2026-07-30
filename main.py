@@ -14,33 +14,10 @@ yolo = YOLODetector()
 face = FaceDetector()
 
 
+def calc_fps(end,start):
 
-while True:
-    start = time.time()
-    ret, frame = camera.read()
-    
-    
-    if not ret:
-        break
-
-
-    annotated_frame = frame.copy()
-
-    
-    # YOLO detects human 
-    result = yolo.detect(annotated_frame)
-
-    # Tracker uses the result and creates an UI
-    mensch = tracker.humanrecognition(annotated_frame,result)
-
-    # FACE Tracking
-    gesicht = face.detect_Face(frame,annotated_frame)
-
-    # Tracking
-    
-    end = time.time()
-            
     fps = math.ceil(1 / (end - start))
+    
     if fps < 10:
         cv2.putText(
             annotated_frame,
@@ -61,7 +38,35 @@ while True:
             1,
             (255, 0, 0),
             2
-            )
+            )   
+
+
+while True:
+    # FPS Start
+    start = time.time()
+
+    ret, frame = camera.read()
+    
+    if not ret:
+        break
+
+
+    annotated_frame = frame.copy()
+
+    
+    # YOLO detects human 
+    result = yolo.detect(annotated_frame)
+
+    # Tracker uses the result and creates an UI
+    human = tracker.humanrecognition(annotated_frame,result)
+
+    # FACE Tracking
+    faces = face.detect_Face(frame,annotated_frame)
+
+   
+    # FPS End 
+    end = time.time()
+    calc_fps(end,start)
         
 
     cv2.imshow(
@@ -73,7 +78,6 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
-
-
 camera.release()
 cv2.destroyAllWindows()
+
