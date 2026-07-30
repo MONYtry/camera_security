@@ -27,8 +27,14 @@ while True:
     annotated_frame = frame.copy()
 
     
-    # YOLO erkennt Personen
-    
+    # YOLO detects human 
+    result = yolo.detect(annotated_frame)
+
+    # Tracker uses the result and creates an UI
+    mensch = tracker.humanrecognition(annotated_frame,result)
+
+    # FACE Tracking
+    gesicht = face.detect_Face(frame,annotated_frame)
 
     # Tracking
     

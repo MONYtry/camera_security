@@ -18,16 +18,17 @@ class Tracker:
 
     def get_stable_id(self, detected_id, cx, cy):
 
-        # Wenn YOLO schon eine bekannte ID liefert
+        # if YOLO already has an knowen ID
         if detected_id in self.last_position:
 
             self.last_position[detected_id] = (cx, cy)
             return detected_id
 
 
-        # Prüfen ob eine alte Person nahe dieser Position ist
+        # Checks if an old id is near the position
         for old_id, (old_x, old_y) in self.last_position.items():
 
+            # Calculates the distance
             distance = math.sqrt((cx - old_x)**2 +(cy - old_y)**2)
 
 
@@ -39,7 +40,7 @@ class Tracker:
 
 
 
-        # komplett neue Person
+        # new id
         new_id = self.next_id
         self.next_id += 1
 
@@ -110,32 +111,37 @@ class Tracker:
                 10
             )
 
+            self.make_ui(frame,box,x1,x2,y1,y2)
 
 
-            confidence = float(box.conf[0]) * 100
-            display_confidence = round(confidence,1)
 
-            draw_text(frame,f"{display_confidence}%",x1,y1-10,RED)
-            if confidence > 80:
-
-                draw_box(
-                    frame,
-                    x1,y1,x2,y2,
-                    GREEN
-                )
-            elif confidence > 50:
-
-                draw_box(
-                    frame,
-                    x1,y1,x2,y2,
-                    BLUE
-                )
-            else:
-                draw_box(
-                    frame,
-                    x1,y1,x2,y2,
-                    RED
-                )
+            
 
 
         return personen
+
+    def make_ui(self,frame,box,x1,x2,y1,y2):
+
+        confidence = float(box.conf[0]) * 100
+        display_confidence = round(confidence,1)
+                    
+        draw_text(frame,f"{display_confidence}%",x1,y1-10,RED)
+        if confidence > 80:
+            draw_box(
+                frame,
+                x1,y1,x2,y2,
+                GREEN
+                )
+        elif confidence > 50:
+        
+            draw_box(
+                frame,
+                x1,y1,x2,y2,
+                BLUE
+                )
+        else:
+            draw_box(
+            frame,
+            x1,y1,x2,y2,
+            RED
+            )

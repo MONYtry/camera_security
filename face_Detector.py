@@ -55,13 +55,15 @@ class FaceDetector:
             for face in results.detections:
 
 
-                # Isnt recomended for low tier Computers
-                # More Infomations in Readme.md
-                #self.track_emotions(annotated_frame,y1,y2,x1,x2)
+                
                 
                 # returns needed values for calculating the Box and Text
                 x1,x2,y1,y2 = self.get_box_size(face,annotated_frame)
                 
+                # Isnt recomended for low tier Computers
+                # More Infomations in Readme.md
+                #self.track_emotions(annotated_frame,y1,y2,x1,x2)
+
                 # Creates an Box
                 draw_box(
                     annotated_frame,
