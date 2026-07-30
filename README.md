@@ -71,7 +71,7 @@ Through this project, I improved my knowledge in:
 
 This project was created for **educational and demonstration purposes only**.
 
-Network scanning and connection attempts should only be performed on systems where you have explicit permission.
+Camera surveillance attempts should only be performed on systems where you have explicit permission.
 
 ---
 
